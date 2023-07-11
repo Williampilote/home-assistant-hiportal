@@ -6,7 +6,7 @@ const variables = require("../variables.js");
 
 module.exports = async () => {
   new CronJob(
-    "0/30 * * * * *",
+    "0/10 * * * * *",
     async () => {
       while (variables.renewing) {
         console.log("Waiting for token renewal");
