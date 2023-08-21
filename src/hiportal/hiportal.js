@@ -2,7 +2,6 @@ module.exports = async (page, browser) => {
   try {
     await page.reload();
     await page.waitForTimeout(2000);
-    // Click on <span> "14.30 kWh"
     await page.waitForSelector(".pv8");
     await page.click(".pv8");
     const result = await page.evaluate(() => {
