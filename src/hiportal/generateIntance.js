@@ -6,6 +6,7 @@ module.exports = async () => {
   });
   const page = await browser.newPage();
   try {
+    await page.setDefaultNavigationTimeout(60000);
     await page.goto("https://www.hyponportal.com/signin");
     return { page, browser };
   } catch (error) {

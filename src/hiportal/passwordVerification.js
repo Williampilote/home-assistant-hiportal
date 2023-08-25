@@ -4,7 +4,7 @@ module.exports = async (page, browser) => {
     await page.goto("https://www.hyponportal.com/signin");
 
     // Resize window to 1920 x 953
-    await page.setViewport({ width: 1920, height: 953 });
+    await page.setViewport({ width: 1280, height: 720 });
 
     // Click on <button> "Lire"
     await page.waitForSelector(".notice_button");
@@ -37,7 +37,6 @@ module.exports = async (page, browser) => {
       page.waitForNavigation(),
     ]);
     await page.waitForSelector(".pv8");
-    page;
     return true;
   } catch (error) {
     console.log(error);

@@ -4,19 +4,23 @@ const reGenerateIntance = require("../hiportal/reGenerateIntance.js");
 const passwordVerification = require("../hiportal/passwordVerification.js");
 const variables = require("../variables.js");
 
-module.exports = async () => {
+module.exports = async (io) => {
   new CronJob(
-    "0/10 * * * * *",
+    "0/3 * * * * *",
     async () => {
-      while (variables.renewing) {
+      if (variables.refreshing) {
+        return;
+      }
+      if (variables.renewing) {
         console.log("Waiting for token renewal");
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return;
       }
       variables.refreshing = true;
       variables.lastResult = await hiportal(
         variables.instance.page,
         variables.instance.browser
       );
+      io.emit("data", variables.lastResult);
       variables.refreshing = false;
     },
     null,
@@ -24,7 +28,7 @@ module.exports = async () => {
     "Europe/paris"
   );
   new CronJob(
-    "0 0 0/2 * * *",
+    "0 0 0/1 * * *",
     async () => {
       console.log("Renewing token");
       while (variables.refreshing) {

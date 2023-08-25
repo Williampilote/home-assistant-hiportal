@@ -1,6 +1,6 @@
 module.exports = async (page, browser) => {
   try {
-    await page.reload();
+    await page.goto("https://www.hyponportal.com");
     await page.waitForTimeout(2000);
     await page.waitForSelector(".pv8");
     await page.click(".pv8");
@@ -25,5 +25,6 @@ module.exports = async (page, browser) => {
   } catch (error) {
     console.log(error);
     await browser.close();
+    process.exit(1);
   }
 };

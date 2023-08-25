@@ -48,6 +48,12 @@ app.get("/", async (req, res) => {
   res.send(variables.lastResult);
 });
 
+httpServer.listen(port, () => {
+  console.log(
+    `⚡️[server]: Express server is running at http://localhost:${port}`
+  );
+});
+
 (async () => {
   variables.instance = await generateIntance();
   const result = await passwordVerification(
@@ -61,11 +67,6 @@ app.get("/", async (req, res) => {
     console.log("Password verification success");
     variables.renewing = false;
     console.log("Starting cron...");
-    await require("./src/cron/index.js")();
-    httpServer.listen(port, () => {
-      console.log(
-        `⚡️[server]: Express server is running at http://localhost:${port}`
-      );
-    });
+    await require("./src/cron/index.js")(io);
   }
 })();
