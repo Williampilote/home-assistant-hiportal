@@ -1,6 +1,6 @@
 const CronJob = require("cron").CronJob;
 const hiportal = require("../hiportal/hiportal.js");
-const reGenerateIntance = require("../hiportal/reGenerateIntance.js");
+const generateIntance = require("../hiportal/generateIntance.js");
 const passwordVerification = require("../hiportal/passwordVerification.js");
 const variables = require("../variables.js");
 
@@ -28,7 +28,7 @@ module.exports = async (io) => {
     "Europe/paris"
   );
   new CronJob(
-    "0 0 0/1 * * *",
+    "0 0/5 * * * *",
     async () => {
       console.log("Renewing token");
       while (variables.refreshing) {
@@ -37,7 +37,7 @@ module.exports = async (io) => {
       }
       variables.renewing = true;
       await variables.instance.browser.close();
-      variables.instance = await reGenerateIntance();
+      variables.instance = await generateIntance();
       const result = await passwordVerification(
         variables.instance.page,
         variables.instance.browser
