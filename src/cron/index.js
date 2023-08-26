@@ -28,7 +28,7 @@ module.exports = async (io) => {
     "Europe/paris"
   );
   new CronJob(
-    "0 0/5 * * * *",
+    "0 0 0/1 * * *",
     async () => {
       console.log("Renewing token");
       while (variables.refreshing) {
