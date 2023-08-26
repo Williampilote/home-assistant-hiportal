@@ -6,7 +6,7 @@ const variables = require("../variables.js");
 
 module.exports = async (io) => {
   new CronJob(
-    "0/3 * * * * *",
+    "1/3 * * * * *",
     async () => {
       if (variables.refreshing) {
         return;
